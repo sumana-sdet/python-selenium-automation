@@ -12,8 +12,11 @@ SEARCH_BUTTON = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
 SEARCH_RESULT = (By.XPATH, "//*[@data-test='resultsHeading']")
 ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[id*=addToCartButton]")
 SIDE_NAVIGATION_ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[aria-label*='Add to cart']")
+SIDE_NAVIGATION_PRODUCT_NAME = (By.CSS_SELECTOR, "[class*='h-padding-l-tight'] h4")
 VIEW_CART_AND_CHECKOUT = (By.CSS_SELECTOR, "[href='/cart']")
 CART_SUMMARY = (By.CSS_SELECTOR, "div.h-margin-b-tight")
+CART_PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='cartItem-title']")
+
 
 search_word = "basket"  # search word
 expected_cart_text = "1 item"  # Individual cart message
@@ -43,6 +46,11 @@ def click_add_to_cart(context):
     sleep(3)
 
 
+@when("Store product name")
+def store_product_name(context):
+    context.product_name = context.driver.find_element(*SIDE_NAVIGATION_PRODUCT_NAME).text
+
+
 @when("Click on side navigation add to cart button")
 def click_side_navigation_add_to_cart(context):
     context.driver.find_element(*SIDE_NAVIGATION_ADD_TO_CART_BTN).click()
@@ -69,3 +77,10 @@ def verify_search_result(context):
 def verify_item_added_to_cart(context):
     actual_text = context.driver.find_element(*CART_SUMMARY).text
     assert expected_cart_text in actual_text, f"Expected text '{expected_cart_text}' not in '{actual_text}'"
+
+
+@then("Verify cart has product name")
+def verify_product_name(context):
+    actual_product_name = context.driver.find_element(*CART_PRODUCT_NAME).text
+    assert context.product_name == actual_product_name, f"Expected '{context.product_name}' but got '{actual_product_name}'"
+

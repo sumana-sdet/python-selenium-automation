@@ -11,5 +11,7 @@ Scenario: Verify single item in the cart added
         Then Verify search page is displayed
         When Click on Add to cart
         And  Click on side navigation add to cart button
+        And  Store product name
         And  Click of View Cart and Checkout
         Then Verify the item is added to the cart
+        And  Verify cart has product name
