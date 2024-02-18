@@ -71,15 +71,22 @@ def click_on_view_cart_and_checkout(context):
 
 @then('Verify "Your cart is empty" message is shown')
 def verify_empty_cart_message(context):
+    context.wait.until((
+        EC.presence_of_element_located(EMPTY_CART_MESSAGE)),
+        message="Element 'Empty message' is not located"
+    )
     actual_text = context.driver.find_element(*EMPTY_CART_MESSAGE).text
     assert actual_text == expected_empty_cart_text, f"Expected {expected_empty_cart_text} but found {actual_text}"
 
 
 @then("Verify search page is displayed")
 def verify_search_result(context):
-    sleep(3)
+    context.wait.until((
+        EC.presence_of_element_located(SEARCH_RESULT)),
+        message="Search Result is not located."
+    )
     actual_text = context.driver.find_element(*SEARCH_RESULT).text
-    assert search_word in actual_text, f"The expected word '{search_word}' didn't match the actual word '{actual_text}'"
+    assert search_word in actual_text, f"The expected word '{search_word}' is not in the actual word '{actual_text}'"
 
 
 @then("Verify the item is added to the cart")

@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 def browser_init(context):
@@ -18,7 +17,7 @@ def browser_init(context):
     # implicit wait
     # context.driver.implicitly_wait(4)
 
-    #explicit wait
+    # explicit wait
     context.wait = WebDriverWait(context.driver, 10)
 
 

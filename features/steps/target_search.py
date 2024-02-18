@@ -1,5 +1,6 @@
 from behave import given, when, then
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 SEARCH_TEXT = (By.ID, "search")
 SEARCH_BTN  = (By.CSS_SELECTOR, "[data-test='@web/Search/SearchButton']")
@@ -18,6 +19,10 @@ def click_on_search_btn(context):
 
 @then("Search results for {search_result} are shown")
 def verify_search_results(context, search_result):
+    context.wait.until((
+        EC.presence_of_element_located(SEARCH_RESULT_HEADER)),
+        message="Search results Header can't be located"
+    )
     actual_text = context.driver.find_element(*SEARCH_RESULT_HEADER).text
     assert search_result in actual_text, f"Expected {search_result}, got {actual_text}"
 
