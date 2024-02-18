@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 def browser_init(context):
@@ -13,8 +15,11 @@ def browser_init(context):
 
     context.driver.maximize_window()
 
-    context.driver.maximize_window()
-    context.driver.implicitly_wait(4)
+    # implicit wait
+    # context.driver.implicitly_wait(4)
+
+    #explicit wait
+    context.wait = WebDriverWait(context.driver, 10)
 
 
 def before_scenario(context, scenario):
@@ -28,6 +33,7 @@ def before_step(context, step):
 
 def after_step(context, step):
     if step.status == 'failed':
+        context.driver.save_screenshot('step_failed_{step}.png')
         print('\nStep failed: ', step)
 
 

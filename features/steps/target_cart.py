@@ -1,6 +1,7 @@
 from behave import given, when, then
 from selenium.webdriver.common.by import By
 from time import sleep
+from selenium.webdriver.support import expected_conditions as EC
 
 # Locators for the Empty cart message
 CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartLink']")
@@ -43,17 +44,24 @@ def click_cart_icon(context):
 def click_add_to_cart(context):
     sleep(6)
     context.driver.find_element(*ADD_TO_CART_BTN).click()
-    sleep(3)
-
-
-@when("Store product name")
-def store_product_name(context):
-    context.product_name = context.driver.find_element(*SIDE_NAVIGATION_PRODUCT_NAME).text
 
 
 @when("Click on side navigation add to cart button")
 def click_side_navigation_add_to_cart(context):
+    context.wait.until((
+        EC.element_to_be_clickable(SIDE_NAVIGATION_ADD_TO_CART_BTN)),
+        message='Element is not located'
+    )
     context.driver.find_element(*SIDE_NAVIGATION_ADD_TO_CART_BTN).click()
+
+
+@when("Store product name")
+def store_product_name(context):
+    context.wait.until((
+        EC.presence_of_element_located(SIDE_NAVIGATION_PRODUCT_NAME)),
+        message='Element is not located'
+    )
+    context.product_name = context.driver.find_element(*SIDE_NAVIGATION_PRODUCT_NAME).text
 
 
 @when("Click of View Cart and Checkout")
@@ -69,12 +77,17 @@ def verify_empty_cart_message(context):
 
 @then("Verify search page is displayed")
 def verify_search_result(context):
+    sleep(3)
     actual_text = context.driver.find_element(*SEARCH_RESULT).text
     assert search_word in actual_text, f"The expected word '{search_word}' didn't match the actual word '{actual_text}'"
 
 
 @then("Verify the item is added to the cart")
 def verify_item_added_to_cart(context):
+    context.wait.until((
+        EC.presence_of_element_located(CART_SUMMARY)),
+        message='Cart Summary is not present'
+    )
     actual_text = context.driver.find_element(*CART_SUMMARY).text
     assert expected_cart_text in actual_text, f"Expected text '{expected_cart_text}' not in '{actual_text}'"
 
