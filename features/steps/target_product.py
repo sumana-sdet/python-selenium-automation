@@ -1,5 +1,6 @@
 from behave import given, when, then
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 COLOR_OPTIONS = (By.CSS_SELECTOR, "[class*='ButtonWrapper'] img")
@@ -18,6 +19,10 @@ def verify_colors(context, list_of_colors):
         expected_colors.append(color)
     actual_colors = []
 
+    context.wait.until((
+        EC.presence_of_element_located(COLOR_OPTIONS)),
+        message=f"Element is not located!"
+    )
     colors = context.driver.find_elements(*COLOR_OPTIONS)
     for color in colors:
         color.click()
@@ -48,6 +53,11 @@ PRODUCT_TITLE = (By.CSS_SELECTOR, "[data-test='product-title']")
 
 @then("Verify every product on Target Search results page has product name and product image")
 def verify_product_details(context):
+    # java script to scroll all products
+    # context.driver.execute_script("window.scrollBy(0,2000)", "")
+    # sleep(2)
+    # context.driver.execute_script("window.scrollBy(0,2000)", "")
+
     products = context.driver.find_elements(*PRODUCTS_PER_PAGE)
     # print(len(products))
     for product in products:
