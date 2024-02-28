@@ -4,12 +4,12 @@ from time import sleep
 from selenium.webdriver.support import expected_conditions as EC
 
 # Locators for the Empty cart message
-CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartLink']")
+# CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartLink']")
 EMPTY_CART_MESSAGE = (By.XPATH, "//h1[text()='Your cart is empty']")
 
 # Locators for the individual cart item
-SEARCH_FIELD = (By.ID, "search")
-SEARCH_BUTTON = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
+# SEARCH_FIELD = (By.ID, "search")
+# SEARCH_BUTTON = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
 SEARCH_RESULT = (By.XPATH, "//*[@data-test='resultsHeading']")
 ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[id*=addToCartButton]")
 SIDE_NAVIGATION_ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[aria-label*='Add to cart']")
@@ -21,23 +21,26 @@ CART_PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='cartItem-title']")
 
 search_word = "basket"  # search word
 expected_cart_text = "1 item"  # Individual cart message
-expected_empty_cart_text = "Your cart is empty"  # Empty cart message to verify
+# expected_empty_cart_text = "Your cart is empty"  # Empty cart message to verify
 
 
 @given("Open target.com")
 def open_target(context):
-    context.driver.get("https://www.target.com")
+    # context.driver.get("https://www.target.com")
+    context.app.main_page.open_main()
 
 
 @when("Enter the item in the search field and click")
 def search_item(context):
-    context.driver.find_element(*SEARCH_FIELD).send_keys(search_word)
-    context.driver.find_element(*SEARCH_BUTTON).click()
+    # context.driver.find_element(*SEARCH_FIELD).send_keys(search_word)
+    # context.driver.find_element(*SEARCH_BUTTON).click()
+    context.app.header.search_product(search_word)
 
 
 @when("Click on Cart icon")
 def click_cart_icon(context):
-    context.driver.find_element(*CART_ICON).click()
+    # context.driver.find_element(*CART_ICON).click()
+    context.app.header.click_on_cart()
 
 
 @when("Click on Add to cart")
@@ -75,8 +78,9 @@ def verify_empty_cart_message(context):
         EC.presence_of_element_located(EMPTY_CART_MESSAGE)),
         message="Element 'Empty message' is not located"
     )
-    actual_text = context.driver.find_element(*EMPTY_CART_MESSAGE).text
-    assert actual_text == expected_empty_cart_text, f"Expected {expected_empty_cart_text} but found {actual_text}"
+    # actual_text = context.driver.find_element(*EMPTY_CART_MESSAGE).text
+    # assert actual_text == expected_empty_cart_text, f"Expected {expected_empty_cart_text} but found {actual_text}"
+    context.app.cart_summary_page.verify_cart_summary()
 
 
 @then("Verify search page is displayed")
