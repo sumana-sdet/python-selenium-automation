@@ -80,7 +80,7 @@ def verify_empty_cart_message(context):
     )
     # actual_text = context.driver.find_element(*EMPTY_CART_MESSAGE).text
     # assert actual_text == expected_empty_cart_text, f"Expected {expected_empty_cart_text} but found {actual_text}"
-    context.app.cart_summary_page.verify_cart_summary()
+    context.app.cart_summary_page.verify_empty_cart_summary()
 
 
 @then("Verify search page is displayed")

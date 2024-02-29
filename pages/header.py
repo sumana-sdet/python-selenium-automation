@@ -13,4 +13,5 @@ class Header(Page):
         self.click(*self.SEARCH_BUTTON)
 
     def click_on_cart(self):
-        self.click(*self.CART_ICON)
+       # self.click(*self.CART_ICON)
+       self.wait_element_clickable_click(*self.CART_ICON)
