@@ -7,6 +7,7 @@ class Header(Page):
     SEARCH_FIELD = (By.ID, "search")
     SEARCH_BUTTON = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
     CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartLink']")
+    SIGN_IN = (By.CSS_SELECTOR, "[data-test='@web/AccountLink']")
 
     def search_product(self, search_word):
         self.input_text(search_word, *self.SEARCH_FIELD)
@@ -15,3 +16,7 @@ class Header(Page):
     def click_on_cart(self):
        # self.click(*self.CART_ICON)
        self.wait_element_clickable_click(*self.CART_ICON)
+
+    def click_on_signin(self):
+        self.wait_element_clickable_click(*self.SIGN_IN)
+        

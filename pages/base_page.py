@@ -26,13 +26,13 @@ class Page:
     def wait_element_visible(self, *locator):
         self.wait.until(
             EC.visibility_of_element_located(locator),
-            message=f"Element by {locator} not clickable"
+            message=f"Element by {locator} not visible"
         )
 
     def wait_element_invisible(self, *locator):
         self.wait.until(
             EC.invisibility_of_element_located(locator),
-            message=f"Element by {locator} not clickable"
+            message=f"Element by {locator} is visible"
         )
 
     def wait_element_clickable(self, *locator):
@@ -44,7 +44,7 @@ class Page:
     def wait_element_clickable_click(self, *locator):
         self.wait.until(
             EC.element_to_be_clickable(locator),
-            message=f"Element by {locator} is not clickable"
+            message=f"Element by {locator} is not clickable can't be clicked"
         ).click()
 
     def wait_url_changes(self, initial_url):
@@ -58,7 +58,7 @@ class Page:
         assert expected_text == actual_text, f"Expected {expected_text} but got {actual_text}"
 
     def verify_partial_text(self, expected_text, *locator):
-        actual_text = self.driver.find_element(*locator)
+        actual_text = self.driver.find_element(*locator).text
         assert expected_text in actual_text, f"Expected {expected_text} not in {actual_text}"
 
     def verify_url(self, expected_url):
