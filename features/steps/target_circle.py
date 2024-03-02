@@ -13,7 +13,7 @@ def open_circle_page(context):
     context.app.circle_page.open_circle()
 
 
-@given("Store original window")
+@when("Store original window")
 def store_original_window(context):
     context.original_window = context.driver.current_window_handle
 

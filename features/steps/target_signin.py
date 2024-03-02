@@ -47,5 +47,11 @@ def verify_user_logged_in(context):
     context.app.sign_in_page.verify_user_logged_in()
 
 
+@when("Click on Target Terms and conditions link")
+def click_terms_and_conditions_link(context):
+    context.app.sign_in_page.click_terms_and_conditions()
 
 
+@then("Verify Terms and Conditions page is opened")
+def verify_terms_and_conditions_page_opened(context):
+    context.app.sign_in_page.verify_terms_and_conditions_page_opened()

@@ -12,8 +12,8 @@ Feature: Verify Target Circle
 
   Scenario: User is able to navigate to Google Play Target page
     Given Open Circle page
-    And Store original window
-    When Click Google Play button
+    When Store original window
+    And Click Google Play button
     And Switch to new window
     Then Verify Google Play Target page opened
     And Close current page
