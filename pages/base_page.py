@@ -20,6 +20,17 @@ class Page:
     def input_text(self, text, *locator):
         self.driver.find_element(*locator).send_keys(text)
 
+    def switch_to_new_window(self):
+        self.wait.until(
+            EC.new_window_is_opened,
+            message=f"Error with switching to new window"
+        )
+        all_windows = self.driver.window_handles
+        self.driver.switch_to.window(all_windows[1])
+
+    def switch_to_window_by_id(self, window_id):
+        self.driver.switch_to.window(window_id)
+
     def click(self, *locator):
         self.driver.find_element(*locator).click()
 
@@ -72,3 +83,4 @@ class Page:
             EC.url_contains(expected_partial_url),
             message=f"Expected {expected_partial_url} not found"
         )
+
