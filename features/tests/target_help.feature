@@ -38,3 +38,13 @@ Feature:Verify Target Help UI elements
     When Select the Help topic from Target Circle™
     Then Verify About Target Circle page opened
 
+  Scenario Outline: User can select Help topic
+    Given Open Help page for Returns
+    Then Verify Returns page opened
+    When Select the Help topic from <topic>
+    Then Verify <topic_header> page opened
+    Examples:
+    |topic|topic_header|
+    |Gift Cards|Target GiftCard balance|
+    |Orders & Purchases|Print a receipt|
+

@@ -55,3 +55,8 @@ def click_terms_and_conditions_link(context):
 @then("Verify Terms and Conditions page is opened")
 def verify_terms_and_conditions_page_opened(context):
     context.app.sign_in_page.verify_terms_and_conditions_page_opened()
+
+
+@then("Verify that “We can't find your account.” message is shown")
+def verify_incorrect_login_message(context):
+    context.app.sign_in_page.verify_incorrect_login_message()

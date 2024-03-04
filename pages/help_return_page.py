@@ -3,6 +3,7 @@ from selenium.webdriver.support.select import Select
 from pages.base_page import Page
 from selenium.webdriver.common.by import By
 
+
 class HelpReturnPage(Page):
 
     RETURNS_HEADER = (By.XPATH, "//h1[text()=' Returns']")

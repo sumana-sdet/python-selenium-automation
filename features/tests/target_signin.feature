@@ -27,5 +27,15 @@ Feature: Sign in page
     And Close current page
     And Return to original window
 
+  Scenario: Verify incorrect login test case
+      Given Open target.com
+      When Click Sign In
+      And From right side navigation menu, click Sign In
+      Then Verify Sign In form opened
+      When Input email and password on SignIn page
+      And Click on Sign In Button
+      Then Verify that “We can't find your account.” message is shown
+
+
 
 

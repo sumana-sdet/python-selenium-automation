@@ -10,6 +10,7 @@ class SignInPage(Page):
     SIGN_IN_WITH_PASSWORD = (By.ID, "login")
     TERMS_AND_CONDITIONS = (By.CSS_SELECTOR, "[aria-label*='terms & conditions']")
     TERMS_AND_CONDITIONS_HEADER = (By.CSS_SELECTOR, "[data-test='page-title']")
+    INCORRECT_LOGIN_MESSAGE = (By.CSS_SELECTOR, "[data-test='authAlertDisplay']")
 
     def verify_sign_in_page_open(self):
         self.wait_element_visible(*self.SIGN_IN_HEADER)
@@ -18,8 +19,8 @@ class SignInPage(Page):
         assert self.find_element(*self.EMAIL_FIELD).is_displayed(), f"Expected email field not displayed"
 
     def enter_email_password(self):
-        self.input_text("raisadvorak@joopeerr.com", *self.EMAIL_FIELD)
-        self.input_text("*********", *self.PASSWORD_FIELD)
+        self.input_text("rhhaisadvorak@joopeerr.com", *self.EMAIL_FIELD)
+        self.input_text("sdfsd@eW2", *self.PASSWORD_FIELD)
 
     def click_sign_in_button(self):
         self.wait_element_clickable_click(*self.SIGN_IN_WITH_PASSWORD)
@@ -34,3 +35,7 @@ class SignInPage(Page):
     def verify_terms_and_conditions_page_opened(self):
         self.verify_partial_url("terms-conditions")
         self.verify_text("Terms & Conditions", *self.TERMS_AND_CONDITIONS_HEADER)
+
+    def verify_incorrect_login_message(self):
+        self.wait_element_visible(*self.INCORRECT_LOGIN_MESSAGE)
+        self.verify_text("We can't find your account.", *self.INCORRECT_LOGIN_MESSAGE)
