@@ -19,6 +19,11 @@ def open_target(context):
     context.driver.get("https://help.target.com/help")
 
 
+@given("Open Help page for Returns")
+def open_help_page_returns(context):
+    context.app.help_return_page.open_help_return_page()
+
+
 @then("Verify Target Help page is opened")
 def verify_target_help_page(context):
     actual_text = context.driver.find_element(*TARGET_TITLE).text
@@ -59,3 +64,23 @@ def verify_contact_elements(context, no_of_elements):
 def verify_browser_help_header(context):
     actual_text = context.driver.find_element(*TARGET_BROWSE_HELP_PAGES).text
     assert actual_text == 'Browse all Help pages', f"Expected text didn't match {actual_text}"
+
+
+@then("Verify Returns page opened")
+def verify_help_returns_opened(context):
+    context.app.help_return_page.verify_help_returns_opened()
+
+
+@when("Select the Help topic from {help_topic}")
+def select_topic(context, help_topic):
+    context.app.help_return_page.select_help_topic(help_topic)
+
+
+# @then("Verify Current promotions page opened")
+# def verify_current_promotions(context):
+#     context.app.help_return_page.verify_promotions_opened()
+
+
+@then("Verify {expected_header} page opened")
+def verify_header(context, expected_header):
+    context.app.help_return_page.verify_header(expected_header)

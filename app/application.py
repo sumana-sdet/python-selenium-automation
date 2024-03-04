@@ -2,6 +2,7 @@ from pages.base_page import Page
 from pages.cart_summary_page import CartSummaryPage
 from pages.circle_page import CirclePage
 from pages.header import Header
+from pages.help_return_page import HelpReturnPage
 from pages.main_page import MainPage
 from pages.search_results_page import SearchResultsPage
 from pages.side_navigation_page import SideNavigationPage
@@ -20,4 +21,5 @@ class Application:
         self.side_navigation_page = SideNavigationPage(driver)
         self.sign_in_page = SignInPage(driver)
         self.side_navigation_search_result_page = SideNavigationSearchResultPage(driver)
+        self.help_return_page = HelpReturnPage(driver)
 

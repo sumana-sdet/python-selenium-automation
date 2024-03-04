@@ -25,3 +25,16 @@ Feature:Verify Target Help UI elements
     Given Open https://help.target.com/help
      Then  Verify Target Help page is opened
      And   Verify header 'Browse all Help pages'
+
+  Scenario: User can select Help topic
+    Given Open Help page for Returns
+    Then Verify Returns page opened
+    When Select the Help topic from Promotions & Coupons
+    Then Verify Current promotions page opened
+
+  Scenario: User can select Help topic Target circle
+    Given Open Help page for Returns
+    Then Verify Returns page opened
+    When Select the Help topic from Target Circle™
+    Then Verify About Target Circle page opened
+
